@@ -1,0 +1,120 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>Event Registration Form</h1>
+
+    <form (ngSubmit)="onSubmit()" #eventForm="ngForm" class="form-group">
+      <label for="name">Name</label>
+      <input
+        class="form-control ng-untouched ng-pristine ng-valid"
+        type="text"
+        [(ngModel)]="model.name"
+        name="name"
+        id="name"
+        #name="ngModel"
+        required
+      />
+      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+        Name is required
+      </div>
+
+      <br />
+
+      <label for="email">Email Id</label>
+      <input
+        class="form-control ng-untouched ng-pristine ng-valid"
+        type="email"
+        [(ngModel)]="model.email"
+        name="email"
+        id="email"
+        #email="ngModel"
+        required
+      />
+      <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+        Email is required
+      </div>
+      <br />
+
+      <label for="gender">Gender</label>
+      <select
+        class="form-control"
+        id="gender"
+        [(ngModel)]="model.gender"
+        required
+      >
+        <option value="none" selected disabled hidden>Select gender</option>
+        <option *ngFor="let g of gender" [value]="g">{{ g }}</option>
+      </select>
+      <br />
+
+      <label for="college">College</label>
+      <select
+        class="form-control"
+        id="college"
+        [(ngModel)]="model.college"
+        required
+      >
+        <option value="none" selected disabled hidden>Select</option>
+        <option *ngFor="let clg of college" [value]="clg">{{ clg }}</option>
+      </select>
+      <br />
+
+      <label for="event">Event</label>
+      <select
+        class="form-control"
+        id="event"
+        [(ngModel)]="model.event"
+        required
+      >
+        <option value="none" selected disabled hidden>Select event</option>
+        <option *ngFor="let eve of event" [value]="eve">{{ eve }}</option>
+      </select>
+      <br />
+
+      <!-- <button class="btn btn-primary">Register</button> -->
+
+      <button
+        type="submit"
+        class="btn btn-success"
+        disabled="false"
+        [disabled]="!eventForm.form.valid"
+      >
+        Register
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-default"
+        (click)="newEvent(); eventForm.reset()"
+      >
+        Clear
+      </button>
+    </form>
+  </div>
+  <div *ngIf="submitted">
+    <h2>You submitted the following:</h2>
+    <div class="row">
+      <div class="col-xs-3">Name</div>
+      <div class="col-xs-9">{{ model.name }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Email Id</div>
+      <div class="col-xs-9">{{ model.email }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Gender</div>
+      <div class="col-xs-9">{{ model.gender }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">College</div>
+      <div class="col-xs-9">{{ model.college }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Event</div>
+      <div class="col-xs-9">{{ model.event }}</div>
+    </div>
+    <br />
+    <button type="button" class="btn btn-primary" (click)="submitted = false">
+      Edit
+    </button>
+  </div>
+</div>
